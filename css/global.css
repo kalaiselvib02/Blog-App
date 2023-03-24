@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500&display=swap');
+@import url(./variables.css);
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.para-text{
+    font-size: var(--font-para);
+    font-family: var(--font-primary);
+    font-weight: var(--font-light);
+}
+
+.text-primary{
+    color: var(--primary);
+}
+.text-sm{
+    font-size: var(--font-sm);
+    font-family: var(--font-primary);
+    font-weight: var(--font-regular);
+}

@@ -1,0 +1,22 @@
+:root {
+    --primary: #b355b7;
+    --white: #ffffff;
+
+
+    --font-primary:"Roboto Slab";
+    --font-regular : 400;
+    --font-light:300;
+
+
+    --p_1: 1rem 1rem;
+    --p_1-3: 1.3rem 1.3rem;
+
+
+    --border-radius-sm:0.5rem;
+
+
+    --m_1-3: 1.3rem 1.3rem;
+
+    --font-para : 0.8rem;
+    --font-sm : 0.65rem;
+  }
