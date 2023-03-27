@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,18 +11,55 @@
   
 </head>
 <body>
+  <!-- Start of wrapper-->
     <div class="wrapper">
-        <div id="filter-section-wrapper">
-          <div id="logo"></div>
-          <div id="filter-list">
-            <div id="filter-heading"></div>
+      <!-- Start of filter-section-wrapper-->
+        <div class="filter-section-wrapper" id="filterSectionWrapper">
+           <!-- Start of logo-->
+          <div id="logo">
+            <h4><span class="text-primary">Little</span> Book</h4>
           </div>
+           <!-- End of logo-->
+           <!-- Start of filter-list-->
+          <div class="filter-list" id="filterList">
+            <!-- Start of filter-heading-->
+            <div class="filter-heading">
+                Filter
+            </div>
+            <!-- End of filter-heading-->
+          </div>
+          <!-- End of filter-list-->
+         <div class="selection-row" id="selectionRow">
+          <!-- Start of view-members-->
+            <div id="view-members">
+                <p class="mb-0_5">View Members</p>
+              </div>
+              <!-- Start of toggle-mode-->
+              <div id="toggle-mode">
+                <p>Switch to Dark Mode</p>
+              </div>
+              <!-- End of toggle-mode-->
+         </div>
+         <!-- End of view-members-->
         </div>
-        <div id="blog-list-wrapper"></div>
-        <div id="blog-details-wrapper"></div>
+        <!-- Start of blog-list-wrapper-->
+        <div class="blog-list-wrapper" id="blogListWrapper">
+          <button onclick="addBlog()">Add</button>
+         
+        </div>      
+        <!-- End of view-members-->
+        <!-- Start of blog-details-wrapper-->
+        <div class="blog-details-wrapper" id="blogDetailsWrapper">
+
+        </div>
+         <!-- End of blog-details-wrapper-->
     </div>
-    <script src="/js/constants/constants.js"></script>
+    <!-- End of wrapper-->
+   
+    <!-- Start of external files-->
     <script src="/js/main.js" type="module" defer></script>
-  
+    <!-- Start of external files-->
+
+
 </body>
 </html>

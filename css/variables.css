@@ -6,6 +6,7 @@
     --font-primary:"Roboto Slab";
     --font-regular : 400;
     --font-light:300;
+    --font-medium:500;
 
 
     --p_1: 1rem 1rem;
@@ -13,10 +14,16 @@
 
 
     --border-radius-sm:0.5rem;
+    --border-radius-lg : 0.75rem;
 
 
     --m_1-3: 1.3rem 1.3rem;
+    --mb_1 : 1rem;
+    --mb-0_5 : 0.5rem;
+    --mb-1_5 : 1.5rem;
 
     --font-para : 0.8rem;
     --font-sm : 0.65rem;
+    --font-logo:1.7rem;
+    --font-heading-h1:2rem;
   }
