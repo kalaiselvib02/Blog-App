@@ -21,6 +21,7 @@ export const APP_CONSTANTS = {
     ],
   },
   VIEW_MEMBERS : "View Members",
+  MEMBERS : "Members",
   FORM_INPUTS:{
     SEARCH_BLOG_FORM:{
         INPUT:{
@@ -51,6 +52,8 @@ export const APP_CONSTANTS = {
     DARK:"Switch to Light Mode"
   } ,
   FETCH_DATA:{
-    BLOG:"https://jsonmockserver.vercel.app/api/blogs"
+    BLOG:"https://jsonmockserver.vercel.app/api/blogs",
+    MEMBERS:"https://jsonmockserver.vercel.app/api/users",
+    MEMBERS_IMAGES:"https://jsonmockserver.vercel.app/"
   }
 }

@@ -31,12 +31,12 @@
           <!-- End of filter-list-->
          <div class="selection-row" id="selectionRow">
           <!-- Start of view-members-->
-            <div id="view-members">
-                <p class="mb-0_5">View Members</p>
+            <div class="view-members" id="viewMembers">
+                <button class="outline-0 border-0 btn-transparent mb-0_5" >View Members</button>
               </div>
               <!-- Start of toggle-mode-->
               <div id="toggle-mode">
-                <p>Switch to Dark Mode</p>
+                <button class="outline-0 border-0 btn-transparent mb-0_5" >Switch to Dark Mode</button>
               </div>
               <!-- End of toggle-mode-->
          </div>
@@ -44,7 +44,14 @@
         </div>
         <!-- Start of blog-list-wrapper-->
         <div class="blog-list-wrapper" id="blogListWrapper">
-          <button onclick="addBlog()">Add</button>
+         <div class="blog-list-header">
+          <div class="d-flex">
+            <div class="input-item w-100">
+              <input type="search" name="searchForm" placeholder="Search Blogs" class="search-form w-100 ml-2" id="searchForm">
+            </div>
+            <button class="btn btn-primary btn-md text-white" id="addBtn">NEW</button>
+          </div>
+         </div>
          
         </div>      
         <!-- End of view-members-->
@@ -55,9 +62,33 @@
          <!-- End of blog-details-wrapper-->
     </div>
     <!-- End of wrapper-->
-   
+    <div id="myModal" class="modal">
+
+      <!-- Start of Modal content -->
+      <div class="modal-content">
+         <!--Start of Modal header -->
+        <div class="modal-header">
+           <!--Start of h2 -->
+          <h2></h2>
+          <!--End of h2 -->
+        </div>
+        <!--End of modal header -->
+          <!--End of modal body -->
+        <div class="modal-body" id="modalBody">
+        
+        </div>
+          <!--End of modal body  -->
+          <!--Start of modal-footer  --> 
+        <div class="modal-footer" id="modalFooter">
+        
+        </div>
+        <!--End of modal-footer  --> 
+      </div>
+     <!-- End of Modal content -->
+    </div>
     <!-- Start of external files-->
     <script src="/js/main.js" type="module" defer></script>
+    
     <!-- Start of external files-->
 
 

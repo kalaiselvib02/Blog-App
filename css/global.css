@@ -11,9 +11,17 @@
     font-family: var(--font-primary);
     font-weight: var(--font-light);
 }
-
+.border-0{
+    border: none;
+}
+.outline-0{
+    outline: none;
+}
 .text-primary{
     color: var(--primary);
+}
+.text-white{
+    color: var(--white);
 }
 .text-sm{
     font-size: var(--font-sm);
@@ -34,4 +42,33 @@
 }
 .mb-1_5{
     margin-bottom: var(--mb-1_5);
+}
+.d-flex{
+    display: flex;
+}
+.flex-column {
+    flex-direction: column;
+}
+.w-100{
+    width: 90%;
+}
+
+.btn{
+    border: none;
+    outline: none;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.btn-md{
+    border-radius: 1.5rem;
+    padding: 1rem 2.5rem;
+    font-size: 0.95rem;
+    
+}
+.btn-primary{
+    background-color: var(--primary);
+}
+.btn-transparent{
+    background-color: transparent;
+    cursor: pointer;
 }
