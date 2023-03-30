@@ -96,6 +96,9 @@
     border-radius: var(--border-radius-sm);
     cursor: pointer;
 }
+.blog-list-item.active{
+  background-color: var( --secondary-light);
+}
 /** End of  blog-list-item **/
 
 /** Start of  blog-list-item  * **/
@@ -150,12 +153,15 @@
     padding: 2.5rem;
     margin: 0 auto;
     width: 50vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 /** End of  blog-details-wrapper ***/
 
 /** Start of  blog-detail-img ***/
 .blog-detail-img { 
-    height: 360px;
+    height: 370px;
     border-radius: var(--border-radius-lg);
 }
 /** End of  blog-detail-img ***/
@@ -177,6 +183,18 @@
     overflow-y: scroll;
 }
 /** Start of  blog-detail-description ***/
+
+/** Start of blog-edit-actions **/
+
+.blog-edit-actions {
+  padding: 1rem 0rem;
+  position: absolute;
+  right: 30px;
+  bottom: 0px;
+  top: auto;
+}
+
+/** End of blog-edit-actions **/
 
 /* Start of  Modal  */
 .modal {

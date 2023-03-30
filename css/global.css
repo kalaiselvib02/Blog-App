@@ -23,6 +23,9 @@
 .text-white{
     color: var(--white);
 }
+.text-dark{
+    color: var(--dark);
+}
 .text-sm{
     font-size: var(--font-sm);
     font-family: var(--font-primary);
@@ -59,16 +62,35 @@
     text-transform: uppercase;
     cursor: pointer;
 }
+.btn-sm {
+    border-radius: 1.5rem;
+    padding: 0.45rem 1.25rem;
+    font-size: 0.65rem;
+}
 .btn-md{
     border-radius: 1.5rem;
     padding: 1rem 2.5rem;
     font-size: 0.95rem;
-    
 }
 .btn-primary{
     background-color: var(--primary);
 }
+.btn-secondary{
+    background-color: var(--secondary);
+}
 .btn-transparent{
     background-color: transparent;
     cursor: pointer;
+}
+.float-right{
+    float: right;
+}
+.d-none{
+    display: none;
+}
+.d-block{
+    display: block;
+}
+.mr-2{
+    margin-right: 10px;
 }

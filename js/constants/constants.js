@@ -1,5 +1,6 @@
 export const APP_CONSTANTS = {
   APP_TITLE : "Little Book",
+  LOCAL:"Local",
   FILTER_DETAILS:{
     TITLE:"Filter",
     FILTER_OPTIONS: [

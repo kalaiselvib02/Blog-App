@@ -2,6 +2,7 @@
 import { APP_CONSTANTS } from "../constants/constants.js";
 import { fetchData } from "./fetchApi.js";
 import { showModal } from "../main.js";
+import {oneError} from "../helpers/helper.js";
 
 const MEMBERS_URL = APP_CONSTANTS.FETCH_DATA.MEMBERS;
 const membersList =  await fetchData(MEMBERS_URL)

@@ -1,6 +1,9 @@
 :root {
     --primary: #b355b7;
+    --secondary:#69f8f8;
+    --secondary-light:#96e2f5;
     --white: #ffffff;
+    --dark : #000;
 
 
     --font-primary:"Roboto Slab";
