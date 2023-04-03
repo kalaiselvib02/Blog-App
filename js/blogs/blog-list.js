@@ -42,7 +42,6 @@ export  function createBlogData(list) {
     // Add Click Function listener
     blogListItem.addEventListener("click", function () {
         setActiveBlog(list , index);   
-      
     }, false);
 
     // Create  DOM element blogListHeading
@@ -76,7 +75,6 @@ export  function createBlogData(list) {
 console.log(activeIndex)
 // Function setActiveBlog //
  function setActiveBlog (list , index) {
-    activeIndex = index
     const currentBlogItem = index;
     let blogListItem = document.querySelectorAll(".blog-list-item");
 
@@ -368,7 +366,7 @@ const createInputs = (appendDiv) => {
    function findBlog() {
 
    }
-   createBlogData(blogList);
+  
    cancelEdit();
    
     
