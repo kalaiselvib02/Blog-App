@@ -94,3 +94,10 @@
 .mr-2{
     margin-right: 10px;
 }
+.error{
+    color: red;
+    font-size: 0.75rem;
+    font-family: var(--font-primary);
+    font-weight: var(--font-regular);
+    margin-bottom: 0.6rem;
+}

@@ -96,6 +96,7 @@
     border-radius: var(--border-radius-sm);
     cursor: pointer;
 }
+
 .blog-list-item.active{
   background-color: var( --secondary-light);
 }

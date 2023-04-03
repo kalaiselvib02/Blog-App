@@ -1,46 +1,48 @@
 import {  showModal , hideModal} from "../main.js";
 import { fetchData } from "../services/fetchApi.js";
 import {APP_CONSTANTS } from "../constants/constants.js";
+import { checkEmpty , checkLength} from "../helpers/helper.js";
 
 
-
+// BLOG URL
 const BLOG_URL = APP_CONSTANTS.FETCH_DATA.BLOG;
-let data = []
-let blogList
 
+// BLOG LIST
+let blogList = await fetchData(BLOG_URL);
 
+let activeIndex = 0;
 
+// PRIVATE VARIABLES
+let inputItemTitle;
+let blogNewTitle;
+let inputItemDescription;
+let blogNewDescription;
+let isEditMode;
+let blogEdit;
+let blogUpdateCancel;
+let blogUpdateSave;
 
-export async function createBlogData(data) {
+// Function createBlogData()
 
-    // Get blogListWrapper DOM element
-    const blogListWrapper = document.getElementById("blogListWrapper");
-
-    if(data) {
-        blogList = data;
-    }
-    else{
-        blogList = await fetchData(BLOG_URL);
-    }
+export  function createBlogData(list) {
+    // Get blogListBody DOM element
+    const blogListBody = document.getElementById("blogListBody");
+    // Clear before appending
+    blogListBody.innerHTML = ""
      // Function Call getBlogDetails //
-
-    getBlogDetails(blogList , 0);
+    getBlogDetails(list , 0);
     // Create  DOM element blogListFragment
     const blogListFragment = document.createDocumentFragment();
     // Loop through fetched list
-    blogList.forEach((blogItem , index) => {
-
+    list.forEach((blogItem , index) => {
     // Create  DOM element blogListItem
     const blogListItem = document.createElement("div");
     blogListItem.className = "blog-list-item"; 
 
-    
     // Add Click Function listener
     blogListItem.addEventListener("click", function () {
-        setActiveBlog(blogList , index);
-       this.classList.add("active")
-        
-        
+        setActiveBlog(list , index);   
+      
     }, false);
 
     // Create  DOM element blogListHeading
@@ -63,23 +65,42 @@ export async function createBlogData(data) {
     // append blogListHeading , blogListType , blogListDescription , blogListItem
     blogListItem.appendChild(blogListHeading);
     blogListItem.appendChild(blogListType);
-    blogListItem.appendChild(blogListDescription)
-    blogListFragment.appendChild(blogListItem)
-
+    blogListItem.appendChild(blogListDescription);
+    blogListFragment.appendChild(blogListItem);
     });
-
-    blogListWrapper.appendChild(blogListFragment);
+    // append blogListFragment
+    blogListBody.appendChild(blogListFragment);
 
 }
 
+console.log(activeIndex)
 // Function setActiveBlog //
  function setActiveBlog (list , index) {
-    const currentBlogItem = index
+    activeIndex = index
+    const currentBlogItem = index;
+    let blogListItem = document.querySelectorAll(".blog-list-item");
+
+    blogListItem.forEach(function (item , key) {
+        item.addEventListener(
+        "click",
+        function (e) {
+
+            blogListItem.forEach(function (item) {
+            item.classList.remove("active");
+            });
+            item.classList.add("active");
+            console.log(e.target);
+        },
+        false
+        );
+    });
+
     // Function call getBlogDetails // 
-   getBlogDetails(list , currentBlogItem)
+   getBlogDetails(list , currentBlogItem);
+
 }
 
-let isEditMode
+
 // Function call getBlogDetails // 
 export function  getBlogDetails(list , currentBlogItem) {
 
@@ -89,45 +110,50 @@ export function  getBlogDetails(list , currentBlogItem) {
      // Get blogListDetail
      const blogListDetail = currentBlogItem > 0 ? list[currentBlogItem] : list[0]
       // Set blogDetailsWrapper
+    if(!isEditMode){
      blogDetailsWrapper.innerHTML = `
       <form id="a-form">
         <img src=${blogListDetail.photo} class="blog-detail-img mb-1"></img>
-        <h1 class="blog-detail-heading mb-1" id="blogNewTitle">${blogListDetail.title}</h1>
-        <p class="blog-detail-description para-text" id="blogNewDescription">${blogListDetail.details}</p>
+        <h1 class="blog-detail-heading mb-1" id="blogNewTitles">${blogListDetail.title}</h1>
+        <p class="blog-detail-description para-text" id="blogNewDescriptions">${blogListDetail.details}</p>
       </form>
      `
-
-
-
+    }
      // Create blogEdit DOM element
     const footerButtonsWrapper = document.createElement("div");
     footerButtonsWrapper.className = "blog-edit-actions";
 
     // Create blogEdit DOM element
-    const blogEdit = document.createElement("button");
+    blogEdit = document.createElement("button");
     blogEdit.className = "btn btn-sm btn-secondary"
     blogEdit.textContent = APP_CONSTANTS.FORM_INPUTS.EDIT_BLOG_FORM.SUBMIT_BTN_TEXT;
 
+    // Function call editBlog
     blogEdit.addEventListener("click", editBlog);
 
 
+     // Create buttonsWrapper DOM element
     const buttonsWrapper = document.createElement("div");
     buttonsWrapper.className = "d-flex";
 
     // Create blogUpdateCancel DOM element
-    const blogUpdateCancel = document.createElement("button");
+    blogUpdateCancel = document.createElement("button");
     blogUpdateCancel.className = "btn btn-sm btn-secondary d-none mr-2"
     blogUpdateCancel.textContent = APP_CONSTANTS.FORM_INPUTS.EDIT_BLOG_FORM.SAVE_FORM.CANCEL;
 
     blogUpdateCancel.addEventListener("click", cancelEdit);
 
     // Create blogUpdateSave DOM element
-    const blogUpdateSave = document.createElement("button");
+    blogUpdateSave = document.createElement("button");
     blogUpdateSave.className = "btn btn-sm btn-primary text-white d-none"
     blogUpdateSave.textContent = APP_CONSTANTS.FORM_INPUTS.EDIT_BLOG_FORM.SAVE_FORM.SAVE;
     blogUpdateSave.setAttribute("type", "submit");
-    blogUpdateSave.setAttribute("form" , "a-form")
-    blogUpdateSave.addEventListener("click", submitBlog);
+    blogUpdateSave.setAttribute("form" , "a-form");
+
+    blogUpdateSave.addEventListener("click", function (event) {
+        submitBlog(event , "blogNewTitless" , "blogNewDescriptionss");
+    }, false);
+
 
     // Append Footer  Blog Buttons
     buttonsWrapper.appendChild(blogEdit);
@@ -142,31 +168,27 @@ export function  getBlogDetails(list , currentBlogItem) {
         blogEdit.classList.add("d-none");
         blogUpdateCancel.classList.add("d-block");
         blogUpdateSave.classList.add("d-block");
+       if(isEditMode) {
         showEditModeInputs()
+       }
     }
-
+    // Function call showEditModeInputs
     function showEditModeInputs() {
         blogDetailsWrapper.innerHTML = `
         <img src=${blogListDetail.photo} class="blog-detail-img mb-1"></img>
-        <input type="text" class="blog-detail-heading mb-1 border-0 outline-0" id="blogNewTitle" value='${blogListDetail.title}'></input>
-        <textarea class="blog-detail-description para-text border-0 outline-0" rows=20 id="blogNewDescription">${blogListDetail.details}</textarea>
+        <input type="text" class="blog-detail-heading mb-1 border-0 outline-0" id="blogNewTitless" value='${blogListDetail.title}'></input>
+        <textarea class="blog-detail-description para-text border-0 outline-0 w-100" rows=20 id="blogNewDescriptionss">${blogListDetail.details}</textarea>
      `;
      blogDetailsWrapper.appendChild(footerButtonsWrapper)   
     }
-
-    function cancelEdit() {
-        isEditMode = false;
-        blogEdit.classList.remove("d-none");
-        blogUpdateCancel.classList.remove("d-block");
-        blogUpdateSave.classList.remove("d-block");
-    }
-
+  // Function call cancelEdit
+  
    
 }
 
  
 
-   
+ // Function call addNewBlog  
 export function addNewBlog() {
    const blogFormTitle = APP_CONSTANTS.FORM_INPUTS.ADD_BLOG_FORM.FORM_TITLE;
     showModal();
@@ -194,7 +216,7 @@ export function addNewBlog() {
     modalFooter.id = "modal-footer";
     modalFooter.className = "modalFooter";
 
-   
+    // Set Id and class for modal-footer
     modalFooter.id = "modal-footer";
     modalFooter.className = "modalFooter";
    
@@ -233,73 +255,155 @@ export function addNewBlog() {
     modalBody.appendChild(blogAddFragment);
     modalFooter.appendChild(submitBlogBtn);
    // Add click listener for submit btn
-    document.getElementById("submitBlog").addEventListener("click" , submitBlog)
+    document.getElementById("submitBlog").addEventListener("click", function (event) {
+        submitBlog(event , "blogNewTitle" , "blogNewDescription");
+    }, false);
 
 }
 
 const getInputValue = (val) => {
+    console.log(val)
     const inputValue = document.getElementById(val).value;
+    console.log(inputValue)
     return inputValue
 }
 
+
 const createInputs = (appendDiv) => {
-    const blogNewTitle = document.createElement("input");
+
+    inputItemTitle = document.createElement("div");
+    inputItemTitle.className = "input-item";
+
+    blogNewTitle = document.createElement("input");
     blogNewTitle.type = "text";
     blogNewTitle.value = "";
     blogNewTitle.className = "blog-new-title border-0 outline-0";
     blogNewTitle.id = "blogNewTitle"
     blogNewTitle.setAttribute("placeholder" , "Name your blog");
 
+
+    inputItemDescription = document.createElement("div");
+    inputItemDescription.className = "input-item";
+
     // Create blog description input
-    const blogNewDescription = document.createElement("textarea");
+    blogNewDescription = document.createElement("textarea");
     blogNewDescription.value = "";
-    blogNewDescription.className = "blog-new-description border-0 outline-0";
+    blogNewDescription.className = "blog-new-description border-0 outline-0 w-100";
     blogNewDescription.setAttribute("placeholder" , "Write Content Here...");
     blogNewDescription.setAttribute("rows" , 20);
     blogNewDescription.id = "blogNewDescription";
 
-    appendDiv.appendChild(blogNewTitle);
-    appendDiv.appendChild(blogNewDescription)
+    
+    inputItemTitle.appendChild(blogNewTitle);
+    inputItemDescription.appendChild(blogNewDescription);
+    
+   
+    appendDiv.appendChild(inputItemTitle);
+    appendDiv.appendChild(inputItemDescription);
+   
+
+  
 }
 
 // Function call submitBlog // 
-async function  submitBlog(event) {
+ function  submitBlog(event , id1 , id2) {
+    let listArr = blogList;
     event.preventDefault()
     // Get Input value for blogNewTitle // 
-    let title =  getInputValue("blogNewTitle");
+    let title =  getInputValue(id1);
 
     // Get Input value for blogNewDescription // 
-    let description =  getInputValue("blogNewDescription");
+    let description =  getInputValue(id2);
 
     // Create newBlogData Object //
     let newBlogData = {
         title :  title,
         details : description,
         type: APP_CONSTANTS.LOCAL,
-        photo:""
+        photo:"https://dummyimage.com/16:9x1080/"
     }
-    // Function  call hideModall()
-    hideModal()
-    const modal = document.getElementById("myModal");
-     // Empty Modal HTML on submit ()
-    modal.innerHTML = ""
-      // Push new data into blog list // 
-    blogList.push(newBlogData);
-    // Function createBlogData();
-    createBlogData(blogList)
 
+    console.log({newBlogData})
+
+    // Get Constants Value
+    const titleValid = APP_CONSTANTS.FORM_INPUTS.VALIDATIONS.REQUIRED.BLOG_TITLE.ERROR_MESSAGE;
+    const descriptionValid = APP_CONSTANTS.FORM_INPUTS.VALIDATIONS.REQUIRED.BLOG_DESCRIPTION.ERROR_MESSAGE;
+    const titleMaxLength = APP_CONSTANTS.FORM_INPUTS.VALIDATIONS.LENGTH.TITLE.LENGTH;
+    const descriptionMaxLength = APP_CONSTANTS.FORM_INPUTS.VALIDATIONS.LENGTH.DESCRIPTION.LENGTH;
+    const titleLengthError = APP_CONSTANTS.FORM_INPUTS.VALIDATIONS.LENGTH.TITLE.ERROR_MESSAGE;
+    const descriptionLengthError = APP_CONSTANTS.FORM_INPUTS.VALIDATIONS.LENGTH.DESCRIPTION.ERROR_MESSAGE;
+
+    // Check If Not Empty and valid character length
+    let isValidTitleLength = checkLength(newBlogData.title , titleMaxLength);
+    let isValidDescriptionLength = checkLength(newBlogData.details , descriptionMaxLength);
+    let isValidTitle = checkEmpty(newBlogData.title);
+    let isValidDescription = checkEmpty(newBlogData.details);
+
+    // Check Condition and createErrorMessage
+//    if(!isValidTitle) createErrorMessage( inputItemTitle , titleValid , isValidTitle) ;
+//    if(!isValidDescription) createErrorMessage( inputItemDescription , descriptionValid , isValidDescription);
+//    if(isValidTitle && !isValidTitleLength) createErrorMessage(inputItemTitle , titleLengthError , isValidTitleLength)
+//    if(isValidDescription && !isValidDescriptionLength) createErrorMessage(inputItemDescription , descriptionLengthError , isValidDescriptionLength)
+
+   
+   // If Form is valid 
+   if(isValidTitle && isValidDescription && isValidTitleLength && isValidDescriptionLength) {
+
+        //  Function  call hideModall()
+        hideModal()
+        const modal = document.getElementById("myModal");
+        // Empty Modal HTML on submit ()
+        modal.innerHTML = ""
+        // Push new data into blog list in first position// 
+      
+        listArr.unshift(newBlogData);
+    
+        blogList = listArr
+        // Function createBlogData();
+        createBlogData(blogList);
+         setActiveClass();
+        
+   }
+
+   function findBlog() {
+
+   }
+   createBlogData(blogList);
+   cancelEdit();
+   
     
 }
+    // Function createErrorMessage
+    const createErrorMessage = (div , message , bool) => {
+            const error = document.createElement("p");
+            error.className="error d-block";
+            error.textContent = message;    
+            div.appendChild(error);   
+    } 
+
+    // Function setActiveClass
+    function setActiveClass() {
+        const firstBlog = document.querySelector(".blog-list-item");
+        firstBlog.classList.add("active")
+    }
+
+    // Function createBlogData
+    createBlogData(blogList);
 
 
+    // Function setActiveClass
+    setActiveClass()
 
-
-
-
-
+    function cancelEdit() {
+        console.log("Called")
+        isEditMode = false;
+        blogEdit.classList.remove("d-none");
+        blogUpdateCancel.classList.remove("d-block");
+        blogUpdateSave.classList.remove("d-block");
+    }
 
 
    
 
-
+   
 

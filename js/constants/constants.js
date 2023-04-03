@@ -46,6 +46,26 @@ export const APP_CONSTANTS = {
             CANCEL:"Cancel",
             SAVE:"Save Content"
         }
+    },
+    VALIDATIONS:{
+      REQUIRED:{
+        BLOG_TITLE:{
+          ERROR_MESSAGE:"Please enter blog title"
+        },
+        BLOG_DESCRIPTION:{
+          ERROR_MESSAGE:"Please enter blog description"
+        }
+      },
+     LENGTH:{
+      TITLE:{
+        LENGTH:60,
+        ERROR_MESSAGE : "Please enter title of 60 characters"
+      },
+      DESCRIPTION:{
+        LENGTH:60,
+        ERROR_MESSAGE : "Please enter description of 256 characters"
+      }
+     }
     }
   },
   MODE:{

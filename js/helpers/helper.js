@@ -1,6 +1,13 @@
+export function defaultImage(currentImage) {
+    console.log(currentImage)
+    currentImage.src = "test";
+ }
 
-export const defaultImage = (img , path) =>
-{
-    img.onerror = "";
-    img.src = path;
+export function checkEmpty(val){
+    return val.trim().length !== 0;
+}
+
+
+export function checkLength(val , n){
+        return val.trim().length <= n;
 }

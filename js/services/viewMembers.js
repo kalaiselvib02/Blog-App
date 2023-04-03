@@ -2,7 +2,7 @@
 import { APP_CONSTANTS } from "../constants/constants.js";
 import { fetchData } from "./fetchApi.js";
 import { showModal } from "../main.js";
-import {oneError} from "../helpers/helper.js";
+ import {defaultImage} from "../helpers/helper.js";
 
 const MEMBERS_URL = APP_CONSTANTS.FETCH_DATA.MEMBERS;
 const membersList =  await fetchData(MEMBERS_URL)
@@ -52,7 +52,9 @@ export  function viewMembers() {
     // Create DOM element img
      const membersListImage = document.createElement("img");
      membersListImage.src=  APP_CONSTANTS.FETCH_DATA.MEMBERS_IMAGES + member.photo;
-     membersListImage.className = "member-img"
+     membersListImage.className = "member-img";
+
+    
  
      // Create DOM element p
      const membersListName = document.createElement("p");
