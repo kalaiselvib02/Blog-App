@@ -5,7 +5,7 @@
     import { fetchData } from "./services/fetchApi.js";
     import { filterData } from "./filters/filter-list.js";
 
-    const modal = document.getElementById("myModal");
+    const modal = document.querySelector(".modal");
     
     const BLOG_URL = APP_CONSTANTS.FETCH_DATA.BLOG;
     
@@ -15,7 +15,8 @@
     document.querySelector("#viewMembers button").addEventListener("click" , viewMembers);
 
 
-    let blogList
+    let blogList;
+    
     const createFilterList = async () => {
 
        let filterListItems =  await filterData(BLOG_URL);

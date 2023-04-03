@@ -338,10 +338,10 @@ const createInputs = (appendDiv) => {
     let isValidDescription = checkEmpty(newBlogData.details);
 
     // Check Condition and createErrorMessage
-//    if(!isValidTitle) createErrorMessage( inputItemTitle , titleValid , isValidTitle) ;
-//    if(!isValidDescription) createErrorMessage( inputItemDescription , descriptionValid , isValidDescription);
-//    if(isValidTitle && !isValidTitleLength) createErrorMessage(inputItemTitle , titleLengthError , isValidTitleLength)
-//    if(isValidDescription && !isValidDescriptionLength) createErrorMessage(inputItemDescription , descriptionLengthError , isValidDescriptionLength)
+   if(!isValidTitle) createErrorMessage( inputItemTitle , titleValid , isValidTitle) ;
+   if(!isValidDescription) createErrorMessage( inputItemDescription , descriptionValid , isValidDescription);
+   if(isValidTitle && !isValidTitleLength) createErrorMessage(inputItemTitle , titleLengthError , isValidTitleLength)
+   if(isValidDescription && !isValidDescriptionLength) createErrorMessage(inputItemDescription , descriptionLengthError , isValidDescriptionLength)
 
    
    // If Form is valid 
