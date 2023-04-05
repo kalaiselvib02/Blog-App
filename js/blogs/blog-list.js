@@ -28,51 +28,32 @@ export  function createBlogData(list) {
     // Get blogListBody DOM element
     const blogListBody = document.getElementById("blogListBody");
     // Clear before appending
-    blogListBody.innerHTML = ""
+    blogListBody.innerHTML = "";
+
+
+    let blogListItems = ''; 
+    list.forEach((blogItem , index) => {
+    blogListItems += `<div class="blog-list-item">
+    <div class="blog-heading">${blogItem.title}</div>
+    <div class="blog-type text-primary text-sm">
+    ${blogItem.type.toUpperCase()}
+    </div>
+    <p class="blog-description text-truncate para-text">${blogItem.details}</p>
+    </div>`;
+    }); 
+
+    blogListBody.innerHTML = blogListItems;
+
      // Function Call getBlogDetails //
     getBlogDetails(list , 0);
-    // Create  DOM element blogListFragment
-    const blogListFragment = document.createDocumentFragment();
-    // Loop through fetched list
-    list.forEach((blogItem , index) => {
-    // Create  DOM element blogListItem
-    const blogListItem = document.createElement("div");
-    blogListItem.className = "blog-list-item"; 
+    // const blogListItem = document.querySelectorAll(".blog-list-item");
+    // // Add Click Function listener
+    // blogListItem.addEventListener("click", function () {
+    //     setActiveBlog(list , index);   
+    // }, false);
 
-    // Add Click Function listener
-    blogListItem.addEventListener("click", function () {
-        setActiveBlog(list , index);   
-    }, false);
-
-    // Create  DOM element blogListHeading
-    const blogListHeading = document.createElement("div");
-    blogListHeading.textContent= blogItem.title;
-    blogListHeading.className = "blog-heading"
-
-
-    // Create  DOM element blogListType
-    const blogListType = document.createElement("div");
-    blogListType.textContent = blogItem.type.toUpperCase()
-    blogListType.className = "blog-type text-primary text-sm";
-
-    // Create  DOM element blogListDescription
-    const blogListDescription = document.createElement("p");
-    blogListDescription.textContent = blogItem.details;
-    blogListDescription.className = "blog-description text-truncate para-text";
-
-
-    // append blogListHeading , blogListType , blogListDescription , blogListItem
-    blogListItem.appendChild(blogListHeading);
-    blogListItem.appendChild(blogListType);
-    blogListItem.appendChild(blogListDescription);
-    blogListFragment.appendChild(blogListItem);
-    });
-    // append blogListFragment
-    blogListBody.appendChild(blogListFragment);
 
 }
-
-console.log(activeIndex)
 // Function setActiveBlog //
  function setActiveBlog (list , index) {
     const currentBlogItem = index;
@@ -82,7 +63,6 @@ console.log(activeIndex)
         item.addEventListener(
         "click",
         function (e) {
-
             blogListItem.forEach(function (item) {
             item.classList.remove("active");
             });
@@ -92,16 +72,12 @@ console.log(activeIndex)
         false
         );
     });
-
     // Function call getBlogDetails // 
    getBlogDetails(list , currentBlogItem);
 
 }
-
-
 // Function call getBlogDetails // 
 export function  getBlogDetails(list , currentBlogItem) {
-
     isEditMode = false; 
     // Get blogDetailsWrapper DOM element
      const blogDetailsWrapper = document.getElementById("blogDetailsWrapper");
@@ -109,13 +85,16 @@ export function  getBlogDetails(list , currentBlogItem) {
      const blogListDetail = currentBlogItem > 0 ? list[currentBlogItem] : list[0]
       // Set blogDetailsWrapper
     if(!isEditMode){
-     blogDetailsWrapper.innerHTML = `
-      <form id="a-form">
-        <img src=${blogListDetail.photo} class="blog-detail-img mb-1"></img>
-        <h1 class="blog-detail-heading mb-1" id="blogNewTitles">${blogListDetail.title}</h1>
-        <p class="blog-detail-description para-text" id="blogNewDescriptions">${blogListDetail.details}</p>
-      </form>
-     `
+        blogDetailsWrapper.innerHTML = `
+        <form id="a-form">
+            <img src=${blogListDetail.photo} class="blog-detail-img mb-1"></img>
+            <h1 class="blog-detail-heading mb-1" id="blogNewTitles">${blogListDetail.title}</h1>
+            <p class="blog-detail-description para-text" id="blogNewDescriptions">${blogListDetail.details}</p>
+        </form>
+        `
+    }
+    else {
+        console.log("Closed")
     }
      // Create blogEdit DOM element
     const footerButtonsWrapper = document.createElement("div");
@@ -163,6 +142,7 @@ export function  getBlogDetails(list , currentBlogItem) {
     // Function call editBlog
     function editBlog() {
         isEditMode = true;
+        console.log("edit mode on")
         blogEdit.classList.add("d-none");
         blogUpdateCancel.classList.add("d-block");
         blogUpdateSave.classList.add("d-block");
@@ -183,9 +163,6 @@ export function  getBlogDetails(list , currentBlogItem) {
   
    
 }
-
- 
-
  // Function call addNewBlog  
 export function addNewBlog() {
    const blogFormTitle = APP_CONSTANTS.FORM_INPUTS.ADD_BLOG_FORM.FORM_TITLE;
@@ -258,7 +235,6 @@ export function addNewBlog() {
     }, false);
 
 }
-
 const getInputValue = (val) => {
     console.log(val)
     const inputValue = document.getElementById(val).value;
@@ -266,41 +242,17 @@ const getInputValue = (val) => {
     return inputValue
 }
 
-
 const createInputs = (appendDiv) => {
-
-    inputItemTitle = document.createElement("div");
-    inputItemTitle.className = "input-item";
-
-    blogNewTitle = document.createElement("input");
-    blogNewTitle.type = "text";
-    blogNewTitle.value = "";
-    blogNewTitle.className = "blog-new-title border-0 outline-0";
-    blogNewTitle.id = "blogNewTitle"
-    blogNewTitle.setAttribute("placeholder" , "Name your blog");
-
-
-    inputItemDescription = document.createElement("div");
-    inputItemDescription.className = "input-item";
-
-    // Create blog description input
-    blogNewDescription = document.createElement("textarea");
-    blogNewDescription.value = "";
-    blogNewDescription.className = "blog-new-description border-0 outline-0 w-100";
-    blogNewDescription.setAttribute("placeholder" , "Write Content Here...");
-    blogNewDescription.setAttribute("rows" , 20);
-    blogNewDescription.id = "blogNewDescription";
-
-    
-    inputItemTitle.appendChild(blogNewTitle);
-    inputItemDescription.appendChild(blogNewDescription);
-    
-   
-    appendDiv.appendChild(inputItemTitle);
-    appendDiv.appendChild(inputItemDescription);
-   
-
-  
+    // appendDiv.innerHTML = `
+    //         <form id="a-form">
+    //             <div class="input-item">
+    //                 <input type="text" class="blog-new-title border-0 outline-0" id="blogNewTitle" placeholder="Name your blog" />
+    //             </div>
+    //             <div class="input-item">
+    //                 <textarea class="blog-new-description border-0 outline-0 w-100" placeholder="Write Content Here..." rows="20" id="blogNewDescription"></textarea>
+    //             </div>
+    //         </form>
+    //     `
 }
 
 // Function call submitBlog // 
@@ -359,7 +311,7 @@ const createInputs = (appendDiv) => {
         blogList = listArr
         // Function createBlogData();
         createBlogData(blogList);
-         setActiveClass();
+          setActiveClass();
         
    }
 
@@ -371,34 +323,35 @@ const createInputs = (appendDiv) => {
    
     
 }
-    // Function createErrorMessage
-    const createErrorMessage = (div , message , bool) => {
-            const error = document.createElement("p");
-            error.className="error d-block";
-            error.textContent = message;    
-            div.appendChild(error);   
-    } 
+// Function createErrorMessage
+const createErrorMessage = (div , message , bool) => {
+        const error = document.createElement("p");
+        error.className="error d-block";
+        error.textContent = message;    
+        div.appendChild(error);   
+} 
 
-    // Function setActiveClass
-    function setActiveClass() {
-        const firstBlog = document.querySelector(".blog-list-item");
-        firstBlog.classList.add("active")
-    }
+// Function setActiveClass
+function setActiveClass() {
+    const firstBlog = document.querySelector(".blog-list-item");
+    firstBlog.classList.add("active")
+}
 
-    // Function createBlogData
-    createBlogData(blogList);
+// Function createBlogData
+createBlogData(blogList);
 
 
-    // Function setActiveClass
-    setActiveClass()
+// Function setActiveClass
+setActiveClass()
 
-    function cancelEdit() {
-        console.log("Called")
-        isEditMode = false;
-        blogEdit.classList.remove("d-none");
-        blogUpdateCancel.classList.remove("d-block");
-        blogUpdateSave.classList.remove("d-block");
-    }
+
+function cancelEdit() {
+    console.log("edit mode off")
+    isEditMode = false;
+    blogEdit.classList.remove("d-none");
+    blogUpdateCancel.classList.remove("d-block");
+    blogUpdateSave.classList.remove("d-block");
+}
 
 
    
