@@ -46,7 +46,7 @@
         <div class="blog-list-wrapper" id="blogListWrapper">
          <div class="blog-list-header">
           <div class="d-flex">
-            <div class="input-item w-100">
+            <div class="input-item w-90 mr-2">
               <input type="search" name="searchForm" placeholder="Search Blogs" class="search-form w-100 ml-2" id="searchForm">
             </div>
             <button class="btn btn-primary btn-md text-white" id="addBtn">NEW</button>
@@ -59,7 +59,13 @@
         <!-- End of view-members-->
         <!-- Start of blog-details-wrapper-->
         <div class="blog-details-wrapper" id="blogDetailsWrapper">
-
+        </div>
+        <div class="blog-edit-actions">
+          <button class="btn btn-sm btn-secondary" id="editBlogBtn"></button>
+          <div class="d-flex">
+            <button class="btn btn-sm btn-secondary d-none mr-2" id="cancelBlogEdit"></button>
+            <button class="btn btn-sm btn-primary text-white d-none mr-2" id="saveBlogEdit" type="submit" form="editForm"></button>
+          </div>
         </div>
          <!-- End of blog-details-wrapper-->
     </div>
@@ -74,6 +80,21 @@
             <h2>Add New Blog</h2>
           </div>
         <div class="modal-body">
+          <form id="a-form">
+            <div class="input-item">
+                <input type="text" class="blog-new-title border-0 outline-0 w-100" id="blogNewTitle" placeholder="Name your blog" />
+                <p class="error" id="emptyTitleError"></p>
+                <p class="error" id="validTitleError"></p>
+            </div>
+            <div class="input-item">
+              <textarea class="blog-new-description border-0 outline-0 w-100" placeholder="Write Content Here..."  id="blogNewDescription"></textarea>
+              <p class="error" id="emptyDescriptionError"></p>
+              <p class="error" id="validDescriptionError"></p>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-md btn-primary text-white" type="submit" form="a-form" id="submitBlogBtn"></button>
         </div>
         </div>
        <!-- End of Modal content -->
@@ -82,26 +103,36 @@
 
     <!-- Start of modal --->
     <div id="membersModal" class="modal view-members-wrapper">
-
       <!-- Start of Modal content -->
-      
-     <!-- End of Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>View Members</h2>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>View Members</h2>
+        </div>
+      <div class="modal-body">
       </div>
-    <div class="modal-body">
-    </div>
-    </div>
+      </div>
+      <!-- End of Modal content -->
     </div>
     <!-- End of modal--->
-    
-   
-    <!-- Start of external files-->
-    <script src="/js/main.js" type="module" defer></script>
 
-  
-    
+       <!-- Start of modal --->
+       <div id="warningModal" class="modal">
+        <!-- Start of Modal content -->
+        <div class="modal-content">
+        
+        <div class="modal-body">
+         <p class="text-center"> You are currently editing this blog , would you like to continue ? </p>
+        </div>
+        <div class="modal-footer text-center m-auto text-center">
+          <button class="btn btn-sm btn-primary text-white mt-4" id="confirmCancelEdit">Cancel</button>
+        </div>
+        </div>
+        <!-- End of Modal content -->
+      </div>
+      <!-- End of modal--->
+    <!-- Start of external files-->
+
+    <script src="/js/main.js" type="module" defer></script>
     <!-- Start of external files-->
 
 

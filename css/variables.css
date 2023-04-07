@@ -1,32 +1,29 @@
 :root {
-    --primary: #b355b7;
-    --secondary:#69f8f8;
-    --secondary-light:#96e2f5;
-    --white: #ffffff;
-    --dark : #000;
+  --primary: #b355b7;
+  --light : #f5f6fa;
+  --secondary: #69f8f8;
+  --secondary-light: #96e2f5;
+  --white: #ffffff;
+  --dark: #000;
 
+  --font-primary: "Roboto Slab";
+  --font-regular: 400;
+  --font-light: 300;
+  --font-medium: 500;
 
-    --font-primary:"Roboto Slab";
-    --font-regular : 400;
-    --font-light:300;
-    --font-medium:500;
+  --p_1: 1rem 1rem;
+  --p_1-3: 1.3rem 1.3rem;
 
+  --border-radius-sm: 0.5rem;
+  --border-radius-lg: 0.75rem;
 
-    --p_1: 1rem 1rem;
-    --p_1-3: 1.3rem 1.3rem;
+  --m_1-3: 1.3rem 1.3rem;
+  --mb_1: 1rem;
+  --mb-0_5: 0.5rem;
+  --mb-1_5: 1.5rem;
 
-
-    --border-radius-sm:0.5rem;
-    --border-radius-lg : 0.75rem;
-
-
-    --m_1-3: 1.3rem 1.3rem;
-    --mb_1 : 1rem;
-    --mb-0_5 : 0.5rem;
-    --mb-1_5 : 1.5rem;
-
-    --font-para : 0.8rem;
-    --font-sm : 0.65rem;
-    --font-logo:1.7rem;
-    --font-heading-h1:2rem;
-  }
+  --font-para: 0.8rem;
+  --font-sm: 0.65rem;
+  --font-logo: 1.7rem;
+  --font-heading-h1: 2rem;
+}

@@ -1,69 +1,67 @@
-
 import { APP_CONSTANTS } from "../constants/constants.js";
 import { fetchData } from "./fetchApi.js";
 import { showModal } from "../main.js";
- import {defaultImage} from "../helpers/helper.js";
 
 const MEMBERS_URL = APP_CONSTANTS.FETCH_DATA.MEMBERS;
-const membersList =  await fetchData(MEMBERS_URL);
+const membersList = await fetchData(MEMBERS_URL);
 
-const modal = document.querySelector(".modal.view-members-wrapper");
+let membersModal = document.querySelector("#membersModal");
 
-  export  function viewMembers() {
-    
-     
+export function viewMembers() {
+  showModal(membersModal)
 
-      modal.style.display = "block"
-  
-      // Create  DOM element modalContent
-      const modalBody = document.querySelector("#membersModal .modal-body");
+  // Create  DOM element modalContent
+  const modalBody = document.querySelector("#membersModal .modal-body");
 
-      const membersListFragment = document.createDocumentFragment();
+  // Clearing to check no duplicates are created
+  modalBody.innerHTML = ""
 
-      // Create DOM element
-      const membersListItemWrapper = document.createElement("div");
-      membersListItemWrapper.className = "member-list-item-wrapper";
+  const membersListFragment = document.createDocumentFragment();
 
-      // Member List loop
-      membersList.forEach((member , index) => {
+  // Create DOM element
+  const membersListItemWrapper = document.createElement("div");
+  membersListItemWrapper.className = "member-list-item-wrapper";
 
-      // Create DOM element div
-      const membersListItem = document.createElement("div");
-      membersListItem.className = "member-list-item d-flex flex-column"; 
-  
-      // Create DOM element img
-      const membersListImage = document.createElement("img");
-      membersListImage.src=  APP_CONSTANTS.FETCH_DATA.MEMBERS_IMAGES + member.photo;
-      membersListImage.className = "member-img";
+  // Member List loop
+  membersList.forEach((member, index) => {
+    // Create DOM element div
+    const membersListItem = document.createElement("div");
+    membersListItem.className = "member-list-item d-flex flex-column";
 
-      membersListImage.addEventListener("load" , defaultImage);
-      // Create DOM element p
-      const membersListName = document.createElement("p");
-      membersListName.textContent = member.name
-      membersListName.className = "blog-type text-primary text-sm";
+    // Create DOM element img
+    const membersListImage = document.createElement("img");
+    membersListImage.setAttribute(
+      "onerror",
+      "this.onerror=null;this.src='https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?w=1060&t=st=1680836103~exp=1680836703~hmac=095437f08b2b3fda1f2afade4200258ba41e516ad795c703c3cf4972df69b8a5';"
+    );
+    membersListImage.src =
+      APP_CONSTANTS.FETCH_DATA.MEMBERS_IMAGES + member.photo;
+    membersListImage.className = "member-img";
 
-      // Create DOM element p
-      const membersListUserName = document.createElement("p");
-      membersListUserName.textContent = member.username;
-      membersListUserName.className = "blog-description text-truncate para-text";
-  
-      // Append membersListImage , membersListName , membersListUserName
-      membersListItem.appendChild(membersListImage);
-      membersListItem.appendChild(membersListName);
-      membersListItem.appendChild(membersListUserName);
-      membersListFragment.appendChild(membersListItem);
-      });
+    // Create DOM element p
+    const membersListName = document.createElement("p");
+    membersListName.textContent = member.name;
+    membersListName.className = "blog-type text-primary text-sm";
 
-      // Append membersListFragment , membersListItemWrapper , modalContent
-      membersListItemWrapper.appendChild(membersListFragment);
-      modalBody.appendChild(membersListItemWrapper); 
-   
-      
-      window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-                modal.innerHTML = ""
-            }
-    }
+    // Create DOM element p
+    const membersListUserName = document.createElement("p");
+    membersListUserName.textContent = member.username;
+    membersListUserName.className = "blog-description text-truncate para-text";
+
+    // Append membersListImage , membersListName , membersListUserName
+    membersListItem.appendChild(membersListImage);
+    membersListItem.appendChild(membersListName);
+    membersListItem.appendChild(membersListUserName);
+    membersListFragment.appendChild(membersListItem);
+  });
+
+  // Append membersListFragment , membersListItemWrapper , modalContent
+  membersListItemWrapper.appendChild(membersListFragment);
+  modalBody.appendChild(membersListItemWrapper);
+}
+
+window.addEventListener("click", function (event, modal) {
+  if (event.target == modal) {
+    modal.style.display = "none";
   }
-
+});

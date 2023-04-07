@@ -1,103 +1,135 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600&display=swap");
 @import url(./variables.css);
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-.para-text{
-    font-size: var(--font-para);
-    font-family: var(--font-primary);
-    font-weight: var(--font-light);
+/** Start of reset css **/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.border-0{
-    border: none;
-}
-.outline-0{
-    outline: none;
-}
-.text-primary{
-    color: var(--primary);
-}
-.text-white{
-    color: var(--white);
-}
-.text-dark{
-    color: var(--dark);
-}
-.text-sm{
-    font-size: var(--font-sm);
-    font-family: var(--font-primary);
-    font-weight: var(--font-regular);
-}
-.flex-center-align{
-    display: flex;
-    align-items: center;
-  
-}
+/** End of reset css **/
 
-.mb-0_5{
-    margin-bottom: var(--mb-0_5);
+/** Start of para-text **/
+.para-text {
+  font-size: var(--font-para);
+  font-family: var(--font-primary);
+  font-weight: var(--font-light);
 }
-.mb-1{
-    margin-bottom: var(--mb_1);
+/** End of para-text **/
+/** Start of border-0 **/
+.border-0 {
+  border: none;
 }
-.mb-1_5{
-    margin-bottom: var(--mb-1_5);
+/** End of border-0 **/
+/** Start of border-0 **/
+.outline-0 {
+  outline: none;
 }
-.d-flex{
-    display: flex;
+/** End of outline-0 **/
+/** Start of text-primary **/
+.text-primary {
+  color: var(--primary);
+}
+/** End of text-primary**/
+/** Start of text-white **/
+.text-white {
+  color: var(--white);
+}
+/** Start of text-white **/
+/** Start of text-dark **/
+.text-dark {
+  color: var(--dark);
+}
+/** End of text-dark **/
+/** Start of text-sm **/
+.text-sm {
+  font-size: var(--font-sm);
+  font-family: var(--font-primary);
+  font-weight: var(--font-regular);
+}
+/** End of text-sm **/
+/** Start of flex-center-align **/
+.flex-center-align {
+  display: flex;
+  align-items: center;
+}
+/** End of flex-center-align**/
+/** Start of margins  **/
+.mb-0_5 {
+  margin-bottom: var(--mb-0_5);
+}
+.mb-1 {
+  margin-bottom: var(--mb_1);
+}
+.mb-1_5 {
+  margin-bottom: var(--mb-1_5);
+}
+.mr-2 {
+  margin-right: 10px;
+}
+/** End of margins  **/
+
+/** Start of d-flex **/
+.d-flex {
+  display: flex;
 }
 .flex-column {
-    flex-direction: column;
+  flex-direction: column;
 }
-.w-100{
-    width: 90%;
+/** End of d-flex **/
+.w-100 {
+  width: 100%;
 }
-
-.btn{
-    border: none;
-    outline: none;
-    text-transform: uppercase;
-    cursor: pointer;
+.w-90{
+width: 90%;
+}
+/** Start of btn styles **/
+.btn {
+  border: none;
+  outline: none;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 .btn-sm {
-    border-radius: 1.5rem;
-    padding: 0.45rem 1.25rem;
-    font-size: 0.65rem;
+  border-radius: 1.5rem;
+  padding: 0.45rem 1.25rem;
+  font-size: 0.65rem;
 }
-.btn-md{
-    border-radius: 1.5rem;
-    padding: 1rem 2.5rem;
-    font-size: 0.95rem;
+.btn-md {
+  border-radius: 1.5rem;
+  padding: 1rem 2.5rem;
+  font-size: 0.95rem;
 }
-.btn-primary{
-    background-color: var(--primary);
+.btn-primary {
+  background-color: var(--primary);
 }
-.btn-secondary{
-    background-color: var(--secondary);
+.btn-secondary {
+  background-color: var(--secondary);
 }
-.btn-transparent{
-    background-color: transparent;
-    cursor: pointer;
+.btn-transparent {
+  background-color: transparent;
+  cursor: pointer;
 }
-.float-right{
-    float: right;
+/** End of border-0 **/
+.float-right {
+  float: right;
 }
-.d-none{
-    display: none;
+/** Start of display values **/
+.d-none {
+  display: none;
 }
-.d-block{
-    display: block;
+.d-block {
+  display: block;
 }
-.mr-2{
-    margin-right: 10px;
+/** End of display values **/
+
+.error {
+  color: red;
+  font-size: 0.75rem;
+  font-family: var(--font-primary);
+  font-weight: var(--font-regular);
+  margin:0.6rem 0rem;
 }
-.error{
-    color: red;
-    font-size: 0.75rem;
-    font-family: var(--font-primary);
-    font-weight: var(--font-regular);
-    margin-bottom: 0.6rem;
+.text-center {
+  text-align: center;
 }
