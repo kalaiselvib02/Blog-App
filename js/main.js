@@ -2,7 +2,7 @@ import { APP_CONSTANTS } from "./constants/constants.js";
 import {
   createBlogData,
   addNewBlog,
-  setActiveClass,
+ 
 } from "./blogs/blog-list.js";
 import { viewMembers } from "./services/viewMembers.js";
 import { fetchData } from "./services/fetchApi.js";
