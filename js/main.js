@@ -96,16 +96,22 @@ const getFilteredOptionsList = () => {
 
 // Get new Blog List from filters
 const getFilteredBlogList = (arr) => {
-  let resultArr = blogList.filter((blog) => {
+   blogList.filter((blog , index) => {
     return arr.some((type) => {
+      let foundElement =  document.querySelectorAll(".blog-list-item")[index];
       if (type === blog.type) {
+        foundElement.classList.remove("d-none")
         return blog;
+      }
+      else {
+        foundElement.classList.add("d-none")
       }
     });
   });
-  createBlogData(resultArr);
-  setActiveClass();
+  
+  //  setActiveClass();
 };
 
 //Function call filter list
 createFilterList();
+
