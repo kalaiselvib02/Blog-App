@@ -6,6 +6,5 @@ export function checkEmpty(val){
 
 
 export function checkLength(value , n){
-        
         return value && value.trim().length <= n;
 }

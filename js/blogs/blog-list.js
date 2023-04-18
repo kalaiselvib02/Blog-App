@@ -9,6 +9,10 @@ const BLOG_URL = APP_CONSTANTS.FETCH_DATA.BLOG;
 // BLOG LIST
 let blogList = await fetchData(BLOG_URL);
 
+let localList = localStorage.getItem("blogs");
+
+window.localStorage.setItem("blogs" , JSON.stringify(blogList))
+
 
 let activeIndex = 0;
 
@@ -17,7 +21,7 @@ let inputItemTitle;
 let blogNewTitle;
 let inputItemDescription;
 let blogNewDescription;
-let isEditMode;
+let isEditMode = false;
 let blogEdit = document.getElementById("editBlogBtn");
 const blogListBody = document.getElementById("blogListBody");
 const blogUpdateCancel = document.getElementById("cancelBlogEdit");
@@ -87,20 +91,17 @@ export function createBlogData(list, isMode) {
 
 
 function getBlogDetails(mode) {
-console.log("blog dcetails called")
   let allBlogListItems = document.querySelectorAll(".blog-list-item");
 
   if (allBlogListItems) {
     allBlogListItems.forEach(function (listItem, index) {
       listItem.addEventListener("click", () => {
-        if(mode) {
-          console.log("enters if")
-          showWarning();
+        if(isEditMode) {
+        showWarning()
         }
         allBlogListItems.forEach(function (listItem) {
           listItem.classList.remove("active");
         });
-        
         listItem.classList.add("active");
         showBlogDetailsData(index);
         
@@ -235,6 +236,9 @@ function submitBlog(event, id1, id2, isMode) {
 
     blogListBody.prepend(newBlogElement);
     blogList.unshift(newBlogData);
+    getBlogDetails()
+    showBlogDetailsData(setBlogIndex);
+    setActiveBlog(setBlogIndex)
     localStorage.setItem("blogs" , JSON.stringify(blogList))
     // showBlogDetailsData(dIndex++)
     addBlogForm.reset();
@@ -263,20 +267,35 @@ function validateForm(titleVal, descriptionVal) {
   let isValidDescription = checkEmpty(descriptionVal);
   let isValid;
 
+
   let errorData = [
     {
       ".title-input": {
-        presence: isValidTitle,
-        message: titleValid,
+        isPresent : {
+          presence: isValidTitle,
+          validMessage: titleValid,
+        },
+        length : {
+          lengthVal: isValidTitleLength,
+          lengthMessage: titleLengthError,
+        }
       },
     },
     {
       ".description-input": {
-        presence: isValidDescription,
-        message: descriptionValid,
+        isPresent : {
+          presence: isValidDescription,
+          validMessage: descriptionValid,
+        },
+        length : {
+          lengthVal: isValidDescriptionLength,
+          lengthMessage: descriptionLengthError,
+        }
+        
       },
     },
   ];
+
 
   // createError()
 
@@ -287,42 +306,59 @@ function validateForm(titleVal, descriptionVal) {
     isValidDescriptionLength
   ) {
     isValid = true;
+
+   
+
   } else {
     createError(errorData);
     isValid = false;
   }
   return isValid;
 }
-
 function createError(errorArrData) {
   errorArrData.forEach((errorData) => {
     for (const [key, value] of Object.entries(errorData)) {
-      let errorEntry = value;
-      let parentErrorDiv = document.querySelector(key);
-      let error;
-      let errorElement = document.querySelector(key + " .error");
-      if (errorEntry.presence === false) {
-        error = "";
-        error = document.createElement("p");
-        error.className = "error";
+        let parentSelector = document.querySelector(key);
+        let errorEntry = value;
         for (const [key, value] of Object.entries(errorEntry)) {
-          error.textContent = value;
-          if (!errorElement) {
-            error.className = "error d-block";
-            parentErrorDiv.appendChild(error);
+          let isPresentEntry = Object.values(errorEntry)[0];
+          let isLengthEntry = Object.values(errorEntry)[1];
+          let error;
+          let checkErrorPresent = parentSelector.querySelector(".error");
+          if(!isPresentEntry.presence) {
+              if(!checkErrorPresent) {
+                generateErrorElement("p" , "error" , value.validMessage , parentSelector)
+              } 
+          }  
+          else {
+              if(checkErrorPresent) {
+                checkErrorPresent.className = "d-none"
+                parentSelector.removeChild(checkErrorPresent)
+              }
+              if(isPresentEntry.presence && !isLengthEntry.lengthVal) {
+                generateErrorElement("p" , "error" , value.lengthMessage , parentSelector)
+              }
           }
         }
-      } else {
-        errorElement.className = "error d-none";
-      }
+
     }
   });
 }
 
+function generateErrorElement(tag , cls , val , selector) {
+ let error = document.createElement(tag);
+  error.className = cls;
+  error.textContent = val
+  selector.appendChild(error)
+}
+
+
+
+
 // Function call editBlog
 function editBlog(blogListDetail) {
-  console.log("edit blog called")
   isEditMode = true;
+
   getBlogDetails(true)
   blogEdit.classList.add("d-none");
   blogUpdateCancel.classList.add("d-block");
@@ -371,33 +407,38 @@ function saveEditBlog(id1, id2, bIndex, blogItem) {
     photo: blogItem.photo,
   };
 
-  blogList[bIndex] = newBlogData;
-  localStorage.setItem("blogs" , JSON.stringify(blogList))
+  let isValidEditForm = validateForm(newBlogData.title, newBlogData.details);
 
-  // Push to selected Index //
-  let allBlogListItems = document.querySelectorAll(".blog-list-item");
-  let thisIndex = allBlogListItems[bIndex];
-  thisIndex.innerHTML = `
-      <div class="blog-heading">${newBlogData.title}</div>
-      <div class="blog-type text-primary text-sm">
-      ${newBlogData.type.toUpperCase()}
-      </div>
-      <p class="blog-description text-truncate para-text">${
-        newBlogData.details
-      }</p>
-    `;
-  document.querySelector(".show-details").classList.remove("d-none");
-  document.querySelector(".show-inputs").classList.add("d-none");
+  if(isValidEditForm) {
+    blogList[bIndex] = newBlogData;
+    localStorage.setItem("blogs" , JSON.stringify(blogList))
+  
+    // Push to selected Index //
+    let allBlogListItems = document.querySelectorAll(".blog-list-item");
+    let thisIndex = allBlogListItems[bIndex];
+    thisIndex.innerHTML = `
+        <div class="blog-heading">${newBlogData.title}</div>
+        <div class="blog-type text-primary text-sm">
+        ${newBlogData.type.toUpperCase()}
+        </div>
+        <p class="blog-description text-truncate para-text">${
+          newBlogData.details
+        }</p>
+      `;
+    document.querySelector(".show-details").classList.remove("d-none");
+    document.querySelector(".show-inputs").classList.add("d-none");
+  
+    blogEdit.classList.remove("d-none");
+    blogUpdateCancel.classList.remove("d-block");
+    blogUpdateSave.classList.remove("d-block");
+    showBlogDetailsData(bIndex);
+    isEditMode = false;
+  }
 
-  blogEdit.classList.remove("d-none");
-  blogUpdateCancel.classList.remove("d-block");
-  blogUpdateSave.classList.remove("d-block");
-  showBlogDetailsData(bIndex);
-  isEditMode = false;
+ 
 }
 
 function showWarning() {
-  console.log("warning called");
   let warningModal = document.querySelector("#warningModal");
   showModal(warningModal);
 }
@@ -435,7 +476,7 @@ confirmCancelEditBtn.addEventListener("click", confirmCancel);
 confirmEditBtn.addEventListener("click", confirmEdit);
 
 function confirmCancel() {
-  console.log("cancel called")
+
   isEditMode = false;
   getBlogDetails(false);
   hideModal(warningModal);
@@ -443,8 +484,7 @@ function confirmCancel() {
   blogEdit.classList.remove("d-none");
   blogUpdateCancel.classList.remove("d-block");
   blogUpdateSave.classList.remove("d-block");
- 
-  console.log(isEditMode)
+
 }
 
 function confirmEdit() {
@@ -481,6 +521,20 @@ function toggleButtons(mode) {
 
 showBlogDetailsData(0);
 setActiveClass();
+
+
+// Function setActiveClass
+export function setActiveBlog(ind) {
+  let activeBlog;
+  if (ind) {
+    activeBlog = document.querySelectorAll(".blog-list-item")[ind];
+  } else {
+    activeBlog = document.querySelectorAll(".blog-list-item")[0];
+  }
+  activeBlog.classList.add("active");
+}
+
+
 
 
 
