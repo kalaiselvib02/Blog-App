@@ -1,6 +1,7 @@
 
 
 export function checkEmpty(val){
+   
     return val.trim().length !== 0;
 }
 

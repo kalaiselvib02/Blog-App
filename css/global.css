@@ -133,3 +133,8 @@ width: 90%;
 .text-center {
   text-align: center;
 }
+button[isDisabled="true"] {
+  cursor: not-allowed;
+
+  background-color: #ccc;
+}

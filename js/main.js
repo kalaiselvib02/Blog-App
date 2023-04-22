@@ -3,12 +3,20 @@ import {
   createBlogData,
   addNewBlog,
  
-} from "./blogs/blog-list.js";
+} from "./blogs/blogs.js";
 import { viewMembers } from "./services/viewMembers.js";
 import { fetchData } from "./services/fetchApi.js";
 
 const BLOG_URL = APP_CONSTANTS.FETCH_DATA.BLOG;
-let blogList = await fetchData(BLOG_URL);
+let blogList;
+if(window.localStorage.getItem("blogs")) {
+  blogList =   JSON.parse(localStorage.getItem('blogs') );
+
+} 
+else {
+  blogList =  window.localStorage.setItem("blogs" , JSON.stringify(await fetchData(BLOG_URL)))
+
+ }
 
 document.getElementById("addBtn").addEventListener(
   "click",
@@ -27,7 +35,8 @@ const filterData = (url) => {
   let data = blogList;
   let filteredArr = [];
   data.map((x) => filteredArr.push(x.type));
-  filteredArr = [...new Set(filteredArr)];
+  filteredArr = [...new Set(filteredArr)].reverse();
+  
   return filteredArr;
 };
 // Create List From Option Types from Api
@@ -51,7 +60,7 @@ const createFilterList = () => {
 
     // Create Element DOM - label
     const filterLabel = document.createElement("label");
-    filterLabel.textContent = item;
+    filterLabel.textContent = item + " Blogs";
     filterLabel.setAttribute("for", item);
 
     // Append Child filterInput , filterLabel , filterInputItem

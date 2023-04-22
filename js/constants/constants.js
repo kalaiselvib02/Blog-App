@@ -62,7 +62,7 @@ export const APP_CONSTANTS = {
           ERROR_MESSAGE: "Please enter title of 60 characters",
         },
         DESCRIPTION: {
-          LENGTH: 60,
+          LENGTH: 256,
           ERROR_MESSAGE: "Please enter description of 256 characters",
         },
       },

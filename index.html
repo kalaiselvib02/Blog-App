@@ -49,7 +49,7 @@
             <div class="input-item w-90 mr-2">
               <input type="search" name="searchForm" placeholder="Search Blogs" class="search-form w-100 ml-2" id="searchBlogs">
             </div>
-            <button class="btn btn-primary btn-md text-white" id="addBtn">NEW</button>
+            <button class="btn btn-primary btn-md text-white" id="addBtn" >NEW</button>
           </div>
          </div>
          <div class="blog-list-body" id="blogListBody">
@@ -66,12 +66,14 @@
         </div>
         <div class="show-inputs d-none" id="blogEditDetailsWrapper">
           <img class="blog-detail-img mb-1"></img>
-          <div class="title-input">
-            <input type="text" class="blog-detail-heading mb-1 border-0 outline-0" id="blogEditNewTitle" value=""></input>
+          <div class="blogNewTitle form-input">
+            <input type="text" name="blogNewTitle" class="blog-input form-input blog-new-title border-0 outline-0 w-100" id="blogEditNewTitle" value="" />
           </div>
-          <div class="description-input">
-            <textarea class="blog-detail-description para-text border-0 outline-0 w-100" id="blogEditNewDescription"></textarea>
+
+          <div class="blogNewDescription form-input">
+            <textarea name="blogNewDescription" class="blog-input form-input blog-new-description border-0 outline-0 w-100" id="blogEditNewDescription"></textarea>
           </div>
+
         </div>
         <div class="blog-edit-actions">
           <button class="btn btn-sm btn-secondary" id="editBlogBtn"></button>
@@ -97,15 +99,21 @@
         <div class="modal-body">
           <form id="add-form">
             <div class="input-item title-input">
-                <input type="text" class="blog-input blog-new-title border-0 outline-0 w-100" id="blogNewTitle" placeholder="Name your blog" />
-            </div>
+              <div class="blogNewTitle form-input">
+                <input type="text" name="blogNewTitle" class="blog-input blog-new-title border-0 outline-0 w-100" id="blogNewTitle" placeholder="Name your blog" />
+              </div>
+               
+                </div>
             <div class="input-item description-input">
-              <textarea class="blog-input blog-new-description border-0 outline-0 w-100" placeholder="Write Content Here..."  id="blogNewDescription"></textarea>
-            </div>
+              <div class="blogNewDescription form-input">
+                <textarea name="blogNewDescription" class="blog-input blog-new-description border-0 outline-0 w-100" placeholder="Write Content Here..."  id="blogNewDescription"></textarea>
+              </div>
+              </div>
+            
           </form>
         </div>
         <div class="modal-footer right">
-          <button class="btn btn-md btn-primary text-white" type="submit" form="add-form" id="submitBlogBtn"></button>
+          <button class="btn btn-md btn-primary text-white"  form="add-form" id="submitBlogBtn"></button>
         </div>
         </div>
        <!-- End of Modal content -->
