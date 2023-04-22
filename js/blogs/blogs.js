@@ -412,6 +412,7 @@ function saveEditBlog(id1, id2, bIndex, blogItem) {
   };
 
   blogList[bIndex] = newBlogData;
+  window.localStorage.setItem("blogs", JSON.stringify(blogList));
   let newIndex = bIndex.toString();
   let updatedBlogItem = document.querySelector(
     '[data-index = "' + newIndex + '"]'
