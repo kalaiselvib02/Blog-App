@@ -9,6 +9,7 @@
 .wrapper {
   display: flex;
   height: 100vh;
+  overflow: hidden;
 }
 /** End of wrapper **/
 
@@ -78,9 +79,17 @@
 .blog-list-wrapper {
   width: 33vw;
   background-color : var(--light);
-  overflow: scroll;
 }
 /** End of  blog-list-wrapper **/
+
+/** Start of blog list body **/
+
+.blog-list-body{
+  overflow: scroll;
+  height: calc(100% - 100px);
+  
+}
+/** End of blog list body
 
 /** Start of  blog-list-item **/
 .blog-list-item {
@@ -95,6 +104,8 @@
 .blog-list-item.active {
   background-color: var(--secondary-light);
 }
+
+
 /** End of  blog-list-item **/
 
 /** Start of  blog-list-item  * **/
@@ -287,11 +298,11 @@
 }
 
 /* Start of  blog-new-title */
-.blog-new-title {
+/* .blog-new-title {
   font-family: var(--font-primary);
   font-weight: var(--font-regular);
   font-size: 1.4rem;
-}
+} */
 /* End of  blog-new-title */
 
 /* Start of  blog-new-description */
@@ -334,7 +345,7 @@
 #warningModal .modal-content p {
   font-family: var(--font-primary);
   font-weight: var(--font-regular);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 /** End of warning-modal .modal-content p **/
 /** Start of input-item **/

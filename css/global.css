@@ -138,3 +138,16 @@ button[isDisabled="true"] {
 
   background-color: #ccc;
 }
+
+.h-100
+{
+  height: 100%;
+}
+
+.show-inputs textarea{
+  font-family: var(--font-primary);
+    font-weight: var(--font-light);
+    font-size: 0.9rem;
+    line-height: 22px;
+    padding: 0.6rem 0rem;
+}
