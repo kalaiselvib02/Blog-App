@@ -39,7 +39,7 @@
 /** Start of #logo h4 span **/
 #logo h4 span {
   font-family: var(--font-primary);
-  font-weight: var(--font-light);
+  font-weight: var(--font-regular);
   font-size: 1.5rem;
 }
 /** End of #logo h4 span **/
@@ -149,7 +149,7 @@
 
 /** Start of  blog-list-header .search-form ***/
 .blog-list-header .search-form {
-  padding: 0.8rem;
+  padding: 0.8rem 1rem;
   border-radius: 1.5rem;
   border: none;
   outline: none;
@@ -159,6 +159,11 @@
   font-weight: var(--font-light);
 }
 /** End of  blog-list-header .search-form ***/
+
+.blog-list-header .search-form:focus{
+  background-color: #fff;
+  color: #000;
+}
 
 /** Start of  .blog-description.text-truncate ***/
 .blog-description.text-truncate {
@@ -380,7 +385,7 @@ font-weight: var(--font-light);
 /** End of form .blog-input **/
 /** End of blog-detail-description **/
 form .blog-detail-description{
-  min-height: 300px;
+  min-height: 480px;
   text-align: justify;
   overflow: scroll;
 }
@@ -391,14 +396,26 @@ form .blog-detail-description{
 }
 /** Start of member name **/
 .member-name{
-  padding: 0.5rem 0rem 0rem;
+  padding: 0.5rem 0rem 0.15rem;
   font-family: var(--font-secondary);
+  font-weight: var(--font-regular);
+  font-size: 0.8rem;
 }
 /** End of member name **/
 /** Start of member role **/
 .member-role{
   font-family: var(--font-secondary);
   font-weight: var(--font-regular);
+  font-size: 0.7rem;
 }
 /** End of member name **/
 
+/** Start of no-data **/
+.no-data{
+  font-size: 1.1rem;
+  text-align: center;
+  font-family: var(--font-primary);
+  font-weight: var(--font-regular);
+  margin-top: 4rem;
+}
+/** End of no-data **/

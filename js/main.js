@@ -2,7 +2,8 @@ import { APP_CONSTANTS } from "./constants/constants.js";
 import {
   createBlogData,
   addNewBlog,
- removeClass
+ removeClass , 
+ showBlogDetailsData
 } from "./blogs/blogs.js";
 import { viewMembers } from "./services/viewMembers.js";
 import { fetchData } from "./services/fetchApi.js";
@@ -91,7 +92,6 @@ export const showModal = (modalSelector) => {
 }
 // Function call hideModal
 export const hideModal = (modalSelector) => {
-  console.log(modalSelector)
   modalSelector.style.display = "none";
   modalSelector.classList.remove("active");
 }
@@ -115,11 +115,13 @@ const getFilteredBlogList = (arr) => {
   removeClass(blogLists);
    blogList.filter((blog , index) => {
     if(arr.length){
+      document.querySelector(".no-data").classList.add("d-none");
+      document.querySelector("#blogDetailsWrapper").className = "blog-details-wrapper";
     return arr.some((type) => {
       let foundElement =  document.querySelectorAll(".blog-list-item")[index];
       if (type && type === blog.type) {
         foundElement.classList.add("filtered-item")
-        foundElement.classList.remove("d-none")
+        foundElement.classList.remove("d-none");
         return blog;
       }
       else {
@@ -128,19 +130,24 @@ const getFilteredBlogList = (arr) => {
         return 
       }
     });
+   
     }
     else{
      let filteredItems =  document.querySelectorAll(".filtered-item");
      filteredItems.forEach(fItem => fItem.classList.add("d-none"))
+     document.querySelector(".no-data").classList.remove("d-none");
+     document.querySelector("#blogDetailsWrapper").className = "d-none";
     }
-  });
+   });
   addActiveFilter()
 };
 
 
 function addActiveFilter() {
   let filteredItems = document.querySelectorAll(".filtered-item");
-  filteredItems[0].classList.add("active") 
+  filteredItems[0].classList.add("active");
+  let filteredItemIndex = filteredItems[0].getAttribute("data-index");
+  showBlogDetailsData(filteredItemIndex)
   }
 
 //Function call filter list

@@ -11,7 +11,7 @@
 /** End of reset css **/
 textarea {
   resize: none;
-  max-height: 300px;
+  max-height: 480px;
   overflow: scroll;
 }
 /** Start of para-text **/

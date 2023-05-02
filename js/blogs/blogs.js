@@ -1,4 +1,4 @@
-import { showModal, hideModal } from "../main.js";
+import { showModal, hideModal , filterData} from "../main.js";
 import { fetchData } from "../services/fetchApi.js";
 import { APP_CONSTANTS } from "../constants/constants.js";
 import { checkEmpty, checkLength } from "../helpers/helper.js";
@@ -16,6 +16,7 @@ let blogListDetail;
 let setBlogIndex;
 let setBlogDetail;
 let blogList;
+
 
 // Dom Selections
 const addModal = document.querySelector("#myModal");
@@ -90,6 +91,12 @@ export function createBlogData(list) {
   });
   // set inner html blogListItems
   blogListBody.innerHTML = blogListItems;
+
+  let noData = document.createElement("p");
+  noData.className = "d-none no-data";
+  noData.textContent = "Sorry , No Data Found";
+
+  blogListBody.appendChild(noData)
   //  getBlogDetails
   getBlogDetails(false);
 }
@@ -118,9 +125,11 @@ function getBlogDetails(mode) {
 }
 
 // function showBlogDetailsData()
-function showBlogDetailsData(bIndex) {
+export function showBlogDetailsData(bIndex) {
+
   let blogListDetail = bIndex ? blogList[bIndex] : blogList[0];
   setBlogDetail = blogListDetail;
+
   setBlogIndex = bIndex;
   // Select present blog image
   let blogImage = document.querySelector(".blog-detail-img");
@@ -197,7 +206,9 @@ const getInputValue = (val) => {
 export function addNewBlog() {
   const addModal = document.querySelector("#myModal");
   showModal(addModal);
+  submitBlogBtn.setAttribute("disabled" , true)
   validateForm("#add-form .form-input", submitBlogBtn);
+
 }
 
 // Add click listener for submit btn
@@ -246,6 +257,10 @@ function submitBlog(event, id1, id2, isMode) {
   blogListBody.prepend(newBlogElement);
   // Push to blogList array //
   blogList.push(newBlogData);
+  // Check if local checkbox is already present 
+  let isLocalPresent = document.querySelector(".blog-filter-type[value='Local']");
+  // create local filter type
+   if(!isLocalPresent) addLocalFilter()
   // Function  getBlogDetails //
   getBlogDetails();
   // get index of this element from data-index attribute //
@@ -264,15 +279,29 @@ function submitBlog(event, id1, id2, isMode) {
 }
 
 // Close modal when clicked outside //
-window.onclick = function (event) {
+document.body.onclick = function (event) {
   let currentModal = document.querySelector(".modal.active");
+  let isForm = currentModal.querySelector("form") ? currentModal.querySelector("form") : "";
+ 
   if (event.target == currentModal) {
     currentModal.style.display = "none";
     currentModal.classList.remove("active");
+    if(currentModal && isForm) {
+    isForm.reset()
+    }
   }
 };
+
+function addLocalFilter() {
+  const filterBody = document.querySelector(".filter-body");
+  let newFilterType = document.createElement("div");
+  newFilterType.className = "filter-list-items"
+  newFilterType.innerHTML = `<div class="input-item flex-center-align mb-1"><input type="checkbox" class="blog-filter-type" checked="true" value="Local"><label for="Local">Local Blogs</label></div>`
+  filterBody.prepend(newFilterType)
+}
+
 // Close modal when clicked outside //
-function validateForm(inpList, saveBtn) {
+function validateForm(inpList, btn) {
   // Get all inputs
   let inputList = document.querySelectorAll(inpList + " " + ".blog-input");
 
@@ -280,20 +309,20 @@ function validateForm(inpList, saveBtn) {
     // Get name value of input
     let nameVal = inputList[i].name;
     let ch;
-
     inputList[i].addEventListener("change", function (e) {
-      ch = handleMouseChange(e, inpList, nameVal);
-      ch
-        ? saveBtn.setAttribute("isDisabled", false)
-        : saveBtn.setAttribute("isDisabled", true);
+      ch = handleMouseChange(e, inpList, nameVal , btn);
     });
+    
   }
 }
 // Function  handleMouseChange when input changes //
-function handleMouseChange(event, inpList, nameVal) {
+function handleMouseChange(event, inpList, nameVal , btn) {
   let result;
   // return value from handlechange function //
-  result = handleChange(event, inpList, nameVal);
+  result = handleChange(event, inpList, nameVal , btn);
+  result
+        ? btn.removeAttribute("disabled", false)
+        : btn.setAttribute("disabled", true);
   return result;
 }
 // Function handleChange //
@@ -382,6 +411,7 @@ function editBlog(blogListDetail) {
   isEditMode = true;
   // Function validate form ()
   if (isEditMode) {
+    blogUpdateSave.setAttribute("disabled" , true)
     validateForm("#blogEditDetailsWrapper ", blogUpdateSave);
   }
 
@@ -391,7 +421,6 @@ function editBlog(blogListDetail) {
   blogEdit.classList.add("d-none");
   blogUpdateCancel.classList.add("d-block");
   blogUpdateSave.classList.add("d-block");
-
   // Function call showEditModeInputs
   showEditModeInputs(blogListDetail);
 }
@@ -419,7 +448,7 @@ function showEditModeInputs(listDetailValue) {
     "#blogEditNewDescription"
   );
   // set text content for description from object //
-  headingDescriptionValue.textContent = listDetailValue.details;
+  headingDescriptionValue.value = listDetailValue.details;
 }
 
 function saveEditBlog(id1, id2, bIndex, blogItem) {
@@ -487,7 +516,7 @@ const searchBlogsList = function (event) {
               blog.classList.add("searched-item");
             } else {
               blog.classList.add("d-none");
-              blog.classList.remove("searched-item")
+              blog.classList.remove("searched-item");
             }
         });
     }      
@@ -496,7 +525,9 @@ const searchBlogsList = function (event) {
 // function to add active class to searched list first item
 function getSearchedItems() {
   let searchedItems = document.querySelectorAll(".searched-item");
-  searchedItems[0].classList.add("active") 
+  searchedItems[0].classList.add("active");
+  let searchedItemIndex = searchedItems[0].getAttribute("data-index");
+  showBlogDetailsData(searchedItemIndex)
   }
 
 // Function setActiveClass
