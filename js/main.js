@@ -34,17 +34,18 @@ document
   .addEventListener("click", viewMembers);
 
 // Get Filter Option Types from Api
-const filterData = (url) => {
+export const filterData = () => {
   let data = blogList;
   let filteredArr = [];
   data.map((x) => filteredArr.push(x.type));
   filteredArr = [...new Set(filteredArr)];
+  filteredArr = filteredArr.reverse()
   return filteredArr;
 };
 // Create List From Option Types from Api
 const createFilterList = () => {
   let filterListItems = filterData(BLOG_URL);
-
+  const filterBody = document.querySelector(".filter-body");
   filterListItems.forEach((item) => {
     // Dom Selector
     const filterList = document.getElementById("filterList");
@@ -62,13 +63,14 @@ const createFilterList = () => {
 
     // Create Element DOM - label
     const filterLabel = document.createElement("label");
-    filterLabel.textContent = item;
+    filterLabel.textContent = item + " Blogs";
     filterLabel.setAttribute("for", item);
 
     // Append Child filterInput , filterLabel , filterInputItem
     filterInputItem.appendChild(filterInput);
     filterInputItem.appendChild(filterLabel);
-    filterList.appendChild(filterInputItem);
+    filterBody.appendChild(filterInputItem);
+    
 
     filterInput.addEventListener(
       "change",
@@ -78,6 +80,7 @@ const createFilterList = () => {
       false
     );
   });
+
 };
 
 const modal = document.querySelector("#myModal");
@@ -88,8 +91,9 @@ export const showModal = (modalSelector) => {
 }
 // Function call hideModal
 export const hideModal = (modalSelector) => {
+  console.log(modalSelector)
   modalSelector.style.display = "none";
-  modalSelector.classList.remove("active")
+  modalSelector.classList.remove("active");
 }
 
 // Get Selected Values on Change each item and store in array
@@ -110,23 +114,31 @@ const getFilteredBlogList = (arr) => {
   let blogLists = document.querySelectorAll(".blog-list-item");
   removeClass(blogLists);
    blogList.filter((blog , index) => {
+    if(arr.length){
     return arr.some((type) => {
       let foundElement =  document.querySelectorAll(".blog-list-item")[index];
-      if (type === blog.type) {
+      if (type && type === blog.type) {
         foundElement.classList.add("filtered-item")
         foundElement.classList.remove("d-none")
         return blog;
       }
       else {
         foundElement.classList.remove("filtered-item")
-        foundElement.classList.add("d-none")
+        foundElement.classList.add("d-none");
+        return 
       }
     });
+    }
+    else{
+     let filteredItems =  document.querySelectorAll(".filtered-item");
+     filteredItems.forEach(fItem => fItem.classList.add("d-none"))
+    }
   });
-  getFilteredItems()
+  addActiveFilter()
 };
 
-function getFilteredItems() {
+
+function addActiveFilter() {
   let filteredItems = document.querySelectorAll(".filtered-item");
   filteredItems[0].classList.add("active") 
   }

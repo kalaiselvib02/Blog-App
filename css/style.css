@@ -13,18 +13,21 @@
 }
 /** End of wrapper **/
 
-/** Start of filter-section-wrapper **/
-.filter-section-wrapper {
-  width: 17vw;
+/** Start of nav-section-wrapper **/
+.nav-section-wrapper {
+  width: 16vw;
   display: flex;
   flex-direction: column;
   height: 100%;
   justify-content: space-between;
   padding: 1.5rem 2.5rem;
 }
-/** End of filter-section-wrapper **/
+/** End of nav-section-wrapper **/
 
 /** Start of #logo h4 **/
+#logo{
+  padding: 1rem 0rem 0rem;
+}
 #logo h4 {
   font-family: var(--font-primary);
   font-weight: var(--font-regular);
@@ -43,8 +46,8 @@
 /** Start of filter-heading **/
 .filter-heading {
   text-transform: uppercase;
-  font-family: var(--font-primary);
-  font-weight: var(--font-regular);
+  font-family: var(--font-secondary);
+  font-weight: var(--font-medium);
   font-size: 1rem;
   margin-bottom: var(--mb_1);
 }
@@ -69,7 +72,7 @@
 
 /** Start of  selection-row button **/
 .selection-row button {
-  font-family: var(--font-primary);
+  font-family: var(--font-secondary);
   font-weight: var(--font-regular);
   font-size: 0.8rem;
 }
@@ -79,6 +82,7 @@
 .blog-list-wrapper {
   width: 33vw;
   background-color : var(--light);
+  padding: 0rem 0.7rem;
 }
 /** End of  blog-list-wrapper **/
 
@@ -86,6 +90,7 @@
 
 .blog-list-body{
   overflow: scroll;
+  margin: 0.75rem 0rem 0rem;
   height: calc(100% - 100px);
   
 }
@@ -99,10 +104,24 @@
   margin: var(--m_1-3);
   border-radius: var(--border-radius-sm);
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  font-family: var(--font-primary);
 }
 
 .blog-list-item.active {
   background-color: var(--secondary-light);
+}
+.blog-list-item .blog-heading{
+  font-weight: var(--font-regular);
+}
+.blog-list-item .blog-type{
+  font-family: var(--font-secondary);
+  font-weight: var(--font-medium);
+}
+.blog-list-item .blog-description{
+  font-family: var(--font-secondary);
+  font-weight: var(--font-regular);
+  font-size: 0.85rem;
 }
 
 
@@ -123,16 +142,20 @@
 
 /** Start of  blog-list-header  ***/
 .blog-list-header {
-  padding: var(--p_1-3);
+  padding: 1.5rem 1rem 0rem;
 }
 /** End of  blog-list-header  ***/
 
 /** Start of  blog-list-header .search-form ***/
 .blog-list-header .search-form {
-  padding: var(--p_1);
+  padding: 0.8rem;
   border-radius: 1.5rem;
   border: none;
   outline: none;
+  background-color: #ebecf3;
+  color: #ccc;
+  font-family: var(--font-secondary);
+  font-weight: var(--font-light);
 }
 /** End of  blog-list-header .search-form ***/
 
@@ -184,8 +207,10 @@
   line-height: 22px;
   font-size: 14px;
   word-spacing: 1.5px;
-  height: 30%;
+  max-height: 30vh;
   overflow-y: scroll;
+  font-family: var(--font-secondary);
+  font-weight: var(--font-light);
 }
 /** Start of  blog-detail-description ***/
 
@@ -195,7 +220,7 @@
   padding: 1rem 0rem;
   position: absolute;
   right: 30px;
-  bottom: 0px;
+  bottom: -8px;
   top: auto;
 }
 
@@ -219,7 +244,7 @@
 /* Start of Modal Content */
 .modal-content {
   height: 100%;
-  width: 35vw;
+  min-width: 32vw;;
   right: 0px;
   position: absolute;
   background-color: #fefefe;
@@ -276,7 +301,7 @@
 /* Start of  modal-header h2*/
 .modal-header h2 {
   font-family: var(--font-primary);
-  font-weight: var(--font-medium);
+  font-weight: var(--font-regular);
   font-size: 1.1rem;
 }
 /* End of  modal-header h2*/
@@ -293,25 +318,9 @@
 }
 .modal-footer.right{
   position: absolute;
-  right: 10px;
-  bottom: 10px;;
+  right: 20px;
+  bottom: 20px;;
 }
-
-/* Start of  blog-new-title */
-/* .blog-new-title {
-  font-family: var(--font-primary);
-  font-weight: var(--font-regular);
-  font-size: 1.4rem;
-} */
-/* End of  blog-new-title */
-
-/* Start of  blog-new-description */
-.blog-new-description {
-  font-family: var(--font-primary);
-  font-weight: var(--font-regular);
-  font-size: 1rem;
-}
-/* End of blog-new-description */
 
 /* Start of  member-list-item-wrapper */
 .member-list-item-wrapper {
@@ -328,6 +337,7 @@
   border-radius: 1rem 1rem 1rem 0rem;
 }
 /* Start of  member-list-item-wrapper img */
+
 /** Start of warning-modal .modal-content **/
 #warningModal .modal-content {
   height: 25vh;
@@ -348,8 +358,22 @@
   font-size: 0.85rem;
 }
 /** End of warning-modal .modal-content p **/
+
 /** Start of input-item **/
 form .input-item{
-  padding: 2.5rem 0rem;
+  padding: 2.5rem 0rem 0rem;
+
+}
+form .blog-input{
+  font-family: var(--font-primary);
+}
+form .blog-detail-heading{
+font-size: 1.5rem;
+font-weight: var(--font-light);
+}
+form .blog-detail-description{
+  min-height: 300px;
+  text-align: justify;
+  overflow: scroll;
 }
 /** End of input-item **/
