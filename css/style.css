@@ -1,5 +1,6 @@
 /** Start of import files **/
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500&display=swap');
 @import url(./variables.css);
 @import url(./global.css);
 
@@ -332,8 +333,8 @@
 
 /* Start of  member-list-item-wrapper img */
 .member-list-item img {
-  height: 150px;
-  width: 150px;
+  height: 130px;
+  width: 130px;
   border-radius: 1rem 1rem 1rem 0rem;
 }
 /* Start of  member-list-item-wrapper img */
@@ -362,18 +363,40 @@
 /** Start of input-item **/
 form .input-item{
   padding: 2.5rem 0rem 0rem;
-
 }
+/** End of input-item **/
+/** Start of form .blog-input **/
 form .blog-input{
   font-family: var(--font-primary);
 }
+/** End of form .blog-input **/
+/** Start of form .blog-input **/
 form .blog-detail-heading{
 font-size: 1.5rem;
 font-weight: var(--font-light);
 }
+/** End of form .blog-input **/
+/** End of blog-detail-description **/
 form .blog-detail-description{
   min-height: 300px;
   text-align: justify;
   overflow: scroll;
 }
-/** End of input-item **/
+/** End of blog-detail-description **/
+.member-list-item-wrapper{
+  font-family: var(--font-secondary);
+  font-size: 0.75rem;
+}
+/** Start of member name **/
+.member-name{
+  padding: 0.5rem 0rem 0rem;
+  font-family: var(--font-secondary);
+}
+/** End of member name **/
+/** Start of member role **/
+.member-role{
+  font-family: var(--font-secondary);
+  font-weight: var(--font-regular);
+}
+/** End of member name **/
+

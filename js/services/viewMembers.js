@@ -45,7 +45,7 @@ export function viewMembers() {
 
     // Create DOM element p
     const membersListUserName = document.createElement("p");
-    membersListUserName.textContent = member.username;
+    membersListUserName.textContent = member.username.charAt(0).toUpperCase() + member.username.slice(1);
     membersListUserName.className = "member-role text-truncate para-text";
 
     // Append membersListImage , membersListName , membersListUserName

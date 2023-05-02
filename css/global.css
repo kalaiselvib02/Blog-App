@@ -175,13 +175,6 @@ button[disabled="true"] {
   height: 100%;
 }
 /** End of h-100 **/
-.member-name{
-  padding: 0.5rem 0rem 0rem;
-  font-size: 0.75rem;
-}
-.member-role{
-  font-size: 0.65rem;
-}
 ::-webkit-input-placeholder { /* Edge */
   color:#ccc
 }
