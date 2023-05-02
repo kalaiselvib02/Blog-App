@@ -191,6 +191,8 @@
 /** Start of  blog-detail-img ***/
 .blog-detail-img {
   height: 370px;
+  width: 100%;
+  object-fit: cover;
   border-radius: var(--border-radius-lg);
 }
 /** End of  blog-detail-img ***/
