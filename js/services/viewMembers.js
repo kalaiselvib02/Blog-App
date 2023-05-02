@@ -26,7 +26,7 @@ export function viewMembers() {
   membersList.forEach((member, index) => {
     // Create DOM element div
     const membersListItem = document.createElement("div");
-    membersListItem.className = "member-list-item d-flex flex-column";
+    membersListItem.className = "member-list-item mb-1 d-flex flex-column";
 
     // Create DOM element img
     const membersListImage = document.createElement("img");
@@ -41,12 +41,12 @@ export function viewMembers() {
     // Create DOM element p
     const membersListName = document.createElement("p");
     membersListName.textContent = member.name;
-    membersListName.className = "blog-type text-primary text-sm";
+    membersListName.className = "member-name text-primary text-sm";
 
     // Create DOM element p
     const membersListUserName = document.createElement("p");
-    membersListUserName.textContent = member.username;
-    membersListUserName.className = "blog-description text-truncate para-text";
+    membersListUserName.textContent = member.username.charAt(0).toUpperCase() + member.username.slice(1);
+    membersListUserName.className = "member-role text-truncate para-text";
 
     // Append membersListImage , membersListName , membersListUserName
     membersListItem.appendChild(membersListImage);

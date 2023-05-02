@@ -2,21 +2,25 @@ import { APP_CONSTANTS } from "./constants/constants.js";
 import {
   createBlogData,
   addNewBlog,
- 
+ removeClass , 
+ showBlogDetailsData
 } from "./blogs/blogs.js";
 import { viewMembers } from "./services/viewMembers.js";
 import { fetchData } from "./services/fetchApi.js";
 
 const BLOG_URL = APP_CONSTANTS.FETCH_DATA.BLOG;
 let blogList;
-if(window.localStorage.getItem("blogs")) {
-  blogList =   JSON.parse(localStorage.getItem('blogs') );
 
+if (window.localStorage.getItem("blogs")) {
+  blogList = JSON.parse(localStorage.getItem("blogs"));
 } 
 else {
-  blogList =  window.localStorage.setItem("blogs" , JSON.stringify(await fetchData(BLOG_URL)))
-
- }
+   blogList = await fetchData(BLOG_URL)
+    window.localStorage.setItem(
+    "blogs",
+    JSON.stringify(blogList)
+  );
+}
 
 document.getElementById("addBtn").addEventListener(
   "click",
@@ -31,18 +35,18 @@ document
   .addEventListener("click", viewMembers);
 
 // Get Filter Option Types from Api
-const filterData = (url) => {
+export const filterData = () => {
   let data = blogList;
   let filteredArr = [];
   data.map((x) => filteredArr.push(x.type));
-  filteredArr = [...new Set(filteredArr)].reverse();
-  
+  filteredArr = [...new Set(filteredArr)];
+  filteredArr = filteredArr.reverse()
   return filteredArr;
 };
 // Create List From Option Types from Api
 const createFilterList = () => {
   let filterListItems = filterData(BLOG_URL);
-
+  const filterBody = document.querySelector(".filter-body");
   filterListItems.forEach((item) => {
     // Dom Selector
     const filterList = document.getElementById("filterList");
@@ -66,16 +70,18 @@ const createFilterList = () => {
     // Append Child filterInput , filterLabel , filterInputItem
     filterInputItem.appendChild(filterInput);
     filterInputItem.appendChild(filterLabel);
-    filterList.appendChild(filterInputItem);
+    filterBody.appendChild(filterInputItem);
+    
 
     filterInput.addEventListener(
       "change",
       function () {
-        getFilteredOptionsList(blogList);
+        getFilteredOptionsList();
       },
       false
     );
   });
+
 };
 
 const modal = document.querySelector("#myModal");
@@ -87,7 +93,7 @@ export const showModal = (modalSelector) => {
 // Function call hideModal
 export const hideModal = (modalSelector) => {
   modalSelector.style.display = "none";
-  modalSelector.classList.remove("active")
+  modalSelector.classList.remove("active");
 }
 
 // Get Selected Values on Change each item and store in array
@@ -105,21 +111,44 @@ const getFilteredOptionsList = () => {
 
 // Get new Blog List from filters
 const getFilteredBlogList = (arr) => {
+  let blogLists = document.querySelectorAll(".blog-list-item");
+  removeClass(blogLists);
    blogList.filter((blog , index) => {
+    if(arr.length){
+      document.querySelector(".no-data").classList.add("d-none");
+      document.querySelector("#blogDetailsWrapper").className = "blog-details-wrapper";
     return arr.some((type) => {
       let foundElement =  document.querySelectorAll(".blog-list-item")[index];
-      if (type === blog.type) {
-        foundElement.classList.remove("d-none")
+      if (type && type === blog.type) {
+        foundElement.classList.add("filtered-item")
+        foundElement.classList.remove("d-none");
         return blog;
       }
       else {
-        foundElement.classList.add("d-none")
+        foundElement.classList.remove("filtered-item")
+        foundElement.classList.add("d-none");
+        return 
       }
     });
-  });
-  
-  //  setActiveClass();
+   
+    }
+    else{
+     let filteredItems =  document.querySelectorAll(".filtered-item");
+     filteredItems.forEach(fItem => fItem.classList.add("d-none"))
+     document.querySelector(".no-data").classList.remove("d-none");
+     document.querySelector("#blogDetailsWrapper").className = "d-none";
+    }
+   });
+  addActiveFilter()
 };
+
+
+function addActiveFilter() {
+  let filteredItems = document.querySelectorAll(".filtered-item");
+  filteredItems[0].classList.add("active");
+  let filteredItemIndex = filteredItems[0].getAttribute("data-index");
+  showBlogDetailsData(filteredItemIndex)
+  }
 
 //Function call filter list
 createFilterList();
